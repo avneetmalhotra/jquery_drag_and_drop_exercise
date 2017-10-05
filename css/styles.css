@@ -34,6 +34,11 @@ body{
   cursor: move;
 }
 
+.list li:hover{
+  color: white;
+  background-color: blue;
+}
+
 .main-list{
   margin-right: 80px;
 }
