@@ -10,8 +10,8 @@ List.prototype.init = function(){
   this.bindDragEvent(this.$mainListItems);
   this.bindDragEvent(this.$selectedListItems);
 
-  this.bindDropEvent(this.$mainList);
-  this.bindDropEvent(this.$selectedList);
+  this.bindDropEvent(this.$mainList, this.$selectedList);
+  this.bindDropEvent(this.$selectedList, this.$mainList);
 };
 
 List.prototype.bindDragEvent = function($listItems){
@@ -23,12 +23,15 @@ List.prototype.bindDragEvent = function($listItems){
   });
 };
 
-List.prototype.bindDropEvent = function($list){
+List.prototype.bindDropEvent = function($fromList, $toList){
   var _this = this;
 
-  $list.droppable({ 
+  $toList.droppable({ 
     tolerance : 'pointer',
-    drop : _this.dropEventHandler
+    drop : _this.dropEventHandler,
+    accept : function(element){
+      return element.is($fromList.find('li'));
+    }
   });
 };
 
