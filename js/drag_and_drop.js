@@ -5,7 +5,6 @@ function List(options){
   this.$selectedList = options.$selectedList;
   this.$selectedListItems = this.$selectedList.find('li');
   this.containerDiv = this.$mainList.parent()[0];
-  console.log(this.containerDiv);
 }
 
 List.prototype.init = function(){
@@ -32,7 +31,6 @@ List.prototype.bindDropEvent = function($fromList, $toList){
     tolerance : 'pointer',
     drop : _this.dropEventHandler,
     accept : function(element){
-      console.log(element.is($fromList.find('li')));
       return element.is($fromList.find('li'));
     }
   });
