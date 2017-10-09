@@ -4,6 +4,8 @@ function List(options){
   this.$mainListItems = this.$mainList.find('li');
   this.$selectedList = options.$selectedList;
   this.$selectedListItems = this.$selectedList.find('li');
+  this.containerDiv = this.$mainList.parent()[0];
+  console.log(this.containerDiv);
 }
 
 List.prototype.init = function(){
@@ -19,7 +21,7 @@ List.prototype.bindDragEvent = function($listItems){
     revert : 'invalid',
     cursor : 'move',
     helper : 'clone',
-    containment : '.container'
+    containment : this.containerDiv
   });
 };
 
@@ -30,6 +32,7 @@ List.prototype.bindDropEvent = function($fromList, $toList){
     tolerance : 'pointer',
     drop : _this.dropEventHandler,
     accept : function(element){
+      console.log(element.is($fromList.find('li')));
       return element.is($fromList.find('li'));
     }
   });
@@ -43,9 +46,15 @@ List.prototype.dropEventHandler = function(event, ui){
 };
 
 $(document).ready(function(){
+  var sportsList = new List({ 
+    '$mainList' : $('.sports-list'),
+    '$selectedList' : $('.liked-sports-list')
+  });
+  sportsList.init();
+
   var countriesList = new List({ 
-    '$mainList' : $('.main-list'),
-    '$selectedList' : $('.selected-list')
+    '$mainList' : $('.country-list'),
+    '$selectedList' : $('.selected-country-list')
   });
   countriesList.init();
 });
